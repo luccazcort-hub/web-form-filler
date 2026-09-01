@@ -124,7 +124,6 @@ function Index() {
       "email",
       "periodo",
       "projeto",
-      "responsavel",
       "indicador",
       "statusIndicador",
     ];
