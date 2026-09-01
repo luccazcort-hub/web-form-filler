@@ -419,22 +419,8 @@ function Index() {
             </div>
           )}
 
-          {etapaAtual === "responsavel" && (
-            <div>
-              <Label>Responsável *</Label>
-              <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {RESPONSAVEIS.map((r) => (
-                  <OptionButton
-                    key={r}
-                    selected={form.responsavel === r}
-                    onClick={() => set("responsavel", r)}
-                  >
-                    {r}
-                  </OptionButton>
-                ))}
-              </div>
-            </div>
-          )}
+
+
 
           {etapaAtual === "indicador" && (
             <div>
