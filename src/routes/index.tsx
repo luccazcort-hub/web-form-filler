@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   EVIDENCIA_OPCOES,
-  PERIODOS,
+  periodosDisponiveis,
   PROJETOS,
   RESPONSAVEIS,
   RESPONSAVEIS_INDICADORES,
