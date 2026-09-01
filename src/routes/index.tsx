@@ -165,15 +165,15 @@ function Index() {
   function validar(): string {
     switch (etapaAtual) {
       case "email":
-        return EMAIL_RE.test(form.email.trim())
+        if (!EMAIL_RE.test(form.email.trim()))
+          return "Informe um e-mail corporativo válido.";
+        return form.responsavel
           ? ""
-          : "Informe um e-mail corporativo válido.";
+          : "Selecione o setor pelo qual você é responsável.";
       case "periodo":
         return form.periodo ? "" : "Selecione o período.";
       case "projeto":
         return form.projeto ? "" : "Selecione o projeto.";
-      case "responsavel":
-        return form.responsavel ? "" : "Selecione o responsável.";
       case "indicador":
         return form.indicador ? "" : "Selecione o indicador.";
       case "statusIndicador":
