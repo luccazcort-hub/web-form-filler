@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   EVIDENCIA_OPCOES,
-  PERIODOS,
+  periodosDisponiveis,
   PROJETOS,
   RESPONSAVEIS,
   RESPONSAVEIS_INDICADORES,
@@ -415,7 +415,7 @@ function Index() {
             <div>
               <Label>Período *</Label>
               <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {PERIODOS.map((p) => (
+                {periodosDisponiveis().map((p) => (
                   <OptionButton
                     key={p}
                     selected={form.periodo === p}
