@@ -214,32 +214,28 @@ function Index() {
   async function enviar() {
     setEnviando(true);
     setErro("");
-    const { data, error } = await supabase
-      .from("lancamentos_indicadores")
-      .insert({
-        email: form.email.trim(),
-        periodo: form.periodo,
-        projeto: form.projeto,
-        responsavel: form.responsavel,
-        indicador: form.indicador,
-        status_indicador: form.statusIndicador,
-        resultado: medido ? Number(form.resultado.replace(",", ".")) : null,
-        status_resultado: medido ? form.statusResultado : null,
-        parecer: precisaParecer ? form.parecer.trim() : null,
-        plano_acao:
-          precisaParecer && form.planoAcao.trim()
-            ? form.planoAcao.trim()
-            : null,
-        evidencia: form.evidencia,
-      })
-      .select("id")
-      .single();
+    const id = crypto.randomUUID();
+    const { error } = await supabase.from("lancamentos_indicadores").insert({
+      id,
+      email: form.email.trim(),
+      periodo: form.periodo,
+      projeto: form.projeto,
+      responsavel: form.responsavel,
+      indicador: form.indicador,
+      status_indicador: form.statusIndicador,
+      resultado: medido ? Number(form.resultado.replace(",", ".")) : null,
+      status_resultado: medido ? form.statusResultado : null,
+      parecer: precisaParecer ? form.parecer.trim() : null,
+      plano_acao:
+        precisaParecer && form.planoAcao.trim() ? form.planoAcao.trim() : null,
+      evidencia: form.evidencia,
+    });
     setEnviando(false);
     if (error) {
       setErro("Não foi possível enviar. Tente novamente.");
       return;
     }
-    setProtocolo(data.id.slice(0, 8).toUpperCase());
+    setProtocolo(id.slice(0, 8).toUpperCase());
   }
 
   function novoLancamento() {
