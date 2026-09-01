@@ -246,8 +246,9 @@ function Index() {
 
   const titulos: Record<string, { titulo: string; descricao: string }> = {
     email: {
-      titulo: "E-mail corporativo",
-      descricao: "Informe seu e-mail corporativo Cortez.",
+      titulo: "Identificação",
+      descricao:
+        "Informe seu e-mail corporativo Cortez e o setor pelo qual você é responsável.",
     },
     periodo: {
       titulo: "Período",
@@ -256,10 +257,6 @@ function Index() {
     projeto: {
       titulo: "Projeto",
       descricao: "Selecione a obra vinculada ao indicador.",
-    },
-    responsavel: {
-      titulo: "Responsável",
-      descricao: "Selecione o setor responsável pelo preenchimento desta ficha.",
     },
     indicador: {
       titulo: "Indicador",
