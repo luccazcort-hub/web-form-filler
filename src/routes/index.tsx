@@ -372,16 +372,42 @@ function Index() {
 
         <div className="mt-6">
           {etapaAtual === "email" && (
-            <div>
-              <Label>E-mail *</Label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => set("email", e.target.value)}
-                placeholder="seu.nome@cortez.com.br"
-                className={inputCls}
-                autoFocus
-              />
+            <div className="space-y-6">
+              <div>
+                <Label>E-mail *</Label>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => set("email", e.target.value)}
+                  placeholder="seu.nome@cortez.com.br"
+                  className={inputCls}
+                  autoFocus
+                />
+              </div>
+              <div>
+                <Label>Setor pelo qual você é responsável *</Label>
+                <select
+                  value={form.responsavel}
+                  onChange={(e) => set("responsavel", e.target.value)}
+                  className={inputCls}
+                >
+                  <option value="">Selecione o setor…</option>
+                  {RESPONSAVEIS.map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+                {form.responsavel && (
+                  <p className="mt-2 text-xs leading-relaxed text-ink/60">
+                    Só aparecerão os indicadores de{" "}
+                    <span className="font-medium text-ink">
+                      {form.responsavel}
+                    </span>
+                    .
+                  </p>
+                )}
+              </div>
             </div>
           )}
 
