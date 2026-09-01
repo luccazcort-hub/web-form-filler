@@ -124,7 +124,6 @@ function Index() {
       "email",
       "periodo",
       "projeto",
-      "responsavel",
       "indicador",
       "statusIndicador",
     ];
@@ -166,15 +165,15 @@ function Index() {
   function validar(): string {
     switch (etapaAtual) {
       case "email":
-        return EMAIL_RE.test(form.email.trim())
+        if (!EMAIL_RE.test(form.email.trim()))
+          return "Informe um e-mail corporativo válido.";
+        return form.responsavel
           ? ""
-          : "Informe um e-mail corporativo válido.";
+          : "Selecione o setor pelo qual você é responsável.";
       case "periodo":
         return form.periodo ? "" : "Selecione o período.";
       case "projeto":
         return form.projeto ? "" : "Selecione o projeto.";
-      case "responsavel":
-        return form.responsavel ? "" : "Selecione o responsável.";
       case "indicador":
         return form.indicador ? "" : "Selecione o indicador.";
       case "statusIndicador":
@@ -247,8 +246,9 @@ function Index() {
 
   const titulos: Record<string, { titulo: string; descricao: string }> = {
     email: {
-      titulo: "E-mail corporativo",
-      descricao: "Informe seu e-mail corporativo Cortez.",
+      titulo: "Identificação",
+      descricao:
+        "Informe seu e-mail corporativo Cortez e o setor pelo qual você é responsável.",
     },
     periodo: {
       titulo: "Período",
@@ -257,10 +257,6 @@ function Index() {
     projeto: {
       titulo: "Projeto",
       descricao: "Selecione a obra vinculada ao indicador.",
-    },
-    responsavel: {
-      titulo: "Responsável",
-      descricao: "Selecione o setor responsável pelo preenchimento desta ficha.",
     },
     indicador: {
       titulo: "Indicador",
@@ -376,16 +372,42 @@ function Index() {
 
         <div className="mt-6">
           {etapaAtual === "email" && (
-            <div>
-              <Label>E-mail *</Label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => set("email", e.target.value)}
-                placeholder="seu.nome@cortez.com.br"
-                className={inputCls}
-                autoFocus
-              />
+            <div className="space-y-6">
+              <div>
+                <Label>E-mail *</Label>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => set("email", e.target.value)}
+                  placeholder="seu.nome@cortez.com.br"
+                  className={inputCls}
+                  autoFocus
+                />
+              </div>
+              <div>
+                <Label>Setor pelo qual você é responsável *</Label>
+                <select
+                  value={form.responsavel}
+                  onChange={(e) => set("responsavel", e.target.value)}
+                  className={inputCls}
+                >
+                  <option value="">Selecione o setor…</option>
+                  {RESPONSAVEIS.map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+                {form.responsavel && (
+                  <p className="mt-2 text-xs leading-relaxed text-ink/60">
+                    Só aparecerão os indicadores de{" "}
+                    <span className="font-medium text-ink">
+                      {form.responsavel}
+                    </span>
+                    .
+                  </p>
+                )}
+              </div>
             </div>
           )}
 
@@ -423,22 +445,8 @@ function Index() {
             </div>
           )}
 
-          {etapaAtual === "responsavel" && (
-            <div>
-              <Label>Responsável *</Label>
-              <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {RESPONSAVEIS.map((r) => (
-                  <OptionButton
-                    key={r}
-                    selected={form.responsavel === r}
-                    onClick={() => set("responsavel", r)}
-                  >
-                    {r}
-                  </OptionButton>
-                ))}
-              </div>
-            </div>
-          )}
+
+
 
           {etapaAtual === "indicador" && (
             <div>
