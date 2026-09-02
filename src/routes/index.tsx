@@ -714,30 +714,6 @@ function Shell({
               )}
             </dl>
           </div>
-
-          <div className="rounded-[18px] bg-brand p-5 text-paper ring-1 ring-brand">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
-              Prestação
-            </p>
-            <p className="mt-1 text-lg font-semibold leading-tight">
-              Ficha técnica de obra
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-paper/75">
-              Preenchimento em etapas com validação de campos obrigatórios
-              antes do carimbo de aprovação.
-            </p>
-            <div className="mt-4 flex items-center gap-3 border-t border-paper/15 pt-4">
-              <div className="grid size-10 place-items-center rounded-full bg-golden font-mono text-xs font-medium text-brand">
-                A
-              </div>
-              <div className="leading-tight">
-                <p className="text-sm font-medium">Aguardando envio</p>
-                <p className="font-mono text-[11px] uppercase tracking-wider text-paper/60">
-                  Carimbo liberado na revisão
-                </p>
-              </div>
-            </div>
-          </div>
         </aside>
       </main>
     </div>
