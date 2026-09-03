@@ -1,16 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  EVIDENCIA_OPCOES,
-  periodosDisponiveis,
-  PROJETOS,
-  RESPONSAVEIS,
-  RESPONSAVEIS_INDICADORES,
-  STATUS_INDICADOR,
-  STATUS_RESULTADO,
-  rotuloPeriodo,
-} from "@/lib/indicadores-data";
+  opcoesAtivas,
+  useIndicadores,
+  useMesesRetroativos,
+  useObras,
+  useOpcoes,
+  useSetores,
+} from "@/lib/catalogo";
+import { periodosDisponiveis, rotuloPeriodo } from "@/lib/indicadores-data";
 
 export const Route = createFileRoute("/")({
   component: Index,
