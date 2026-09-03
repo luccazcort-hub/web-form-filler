@@ -1,16 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  EVIDENCIA_OPCOES,
-  periodosDisponiveis,
-  PROJETOS,
-  RESPONSAVEIS,
-  RESPONSAVEIS_INDICADORES,
-  STATUS_INDICADOR,
-  STATUS_RESULTADO,
-  rotuloPeriodo,
-} from "@/lib/indicadores-data";
+  opcoesAtivas,
+  useIndicadores,
+  useMesesRetroativos,
+  useObras,
+  useOpcoes,
+  useSetores,
+} from "@/lib/catalogo";
+import { periodosDisponiveis, rotuloPeriodo } from "@/lib/indicadores-data";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -112,6 +111,19 @@ function Index() {
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState("");
   const [protocolo, setProtocolo] = useState("");
+
+  const { data: setores } = useSetores();
+  const { data: obras } = useObras();
+  const { data: listaIndicadores } = useIndicadores();
+  const { data: opcoes } = useOpcoes();
+  const { data: mesesRetroativos } = useMesesRetroativos();
+
+  const setoresAtivos = (setores ?? []).filter((s) => s.ativo);
+  const obrasAtivas = (obras ?? []).filter((o) => o.ativo);
+  const statusIndicadorOpcoes = opcoesAtivas(opcoes, "status_indicador");
+  const statusResultadoOpcoes = opcoesAtivas(opcoes, "status_resultado");
+  const evidenciaOpcoes = opcoesAtivas(opcoes, "evidencia");
+  const periodos = periodosDisponiveis(mesesRetroativos ?? 2);
 
   const medido = form.statusIndicador === "Realizado | Medido";
   const precisaParecer =

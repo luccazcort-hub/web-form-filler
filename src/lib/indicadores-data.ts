@@ -3,10 +3,10 @@
  * e o mês atual, do mais antigo para o mais recente (esquerda → direita).
  * Ex.: em setembro/2026 retorna ["2026-07", "2026-08", "2026-09"].
  */
-export function periodosDisponiveis(): string[] {
+export function periodosDisponiveis(mesesRetroativos = 2): string[] {
   const agora = new Date();
   const periodos: string[] = [];
-  for (let i = 2; i >= 0; i--) {
+  for (let i = mesesRetroativos; i >= 0; i--) {
     const data = new Date(agora.getFullYear(), agora.getMonth() - i, 1);
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, "0");
