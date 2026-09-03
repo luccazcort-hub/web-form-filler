@@ -112,6 +112,19 @@ function Index() {
   const [erro, setErro] = useState("");
   const [protocolo, setProtocolo] = useState("");
 
+  const { data: setores } = useSetores();
+  const { data: obras } = useObras();
+  const { data: listaIndicadores } = useIndicadores();
+  const { data: opcoes } = useOpcoes();
+  const { data: mesesRetroativos } = useMesesRetroativos();
+
+  const setoresAtivos = (setores ?? []).filter((s) => s.ativo);
+  const obrasAtivas = (obras ?? []).filter((o) => o.ativo);
+  const statusIndicadorOpcoes = opcoesAtivas(opcoes, "status_indicador");
+  const statusResultadoOpcoes = opcoesAtivas(opcoes, "status_resultado");
+  const evidenciaOpcoes = opcoesAtivas(opcoes, "evidencia");
+  const periodos = periodosDisponiveis(mesesRetroativos ?? 2);
+
   const medido = form.statusIndicador === "Realizado | Medido";
   const precisaParecer =
     medido &&
