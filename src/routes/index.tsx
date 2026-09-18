@@ -151,8 +151,11 @@ function Index() {
   const total = etapas.length;
   const progresso = Math.round(((etapa + 1) / total) * 100);
 
-  const indicadores = form.responsavel
-    ? (RESPONSAVEIS_INDICADORES[form.responsavel] ?? [])
+  const setorSelecionado = setoresAtivos.find((s) => s.nome === form.responsavel);
+  const indicadores = setorSelecionado
+    ? (listaIndicadores ?? [])
+        .filter((i) => i.ativo && i.setor_id === setorSelecionado.id)
+        .map((i) => i.nome)
     : [];
 
   function set<K extends keyof FormData>(campo: K, valor: FormData[K]) {
@@ -404,9 +407,9 @@ function Index() {
                   className={inputCls}
                 >
                   <option value="">Selecione o setor…</option>
-                  {RESPONSAVEIS.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
+                  {setoresAtivos.map((s) => (
+                    <option key={s.id} value={s.nome}>
+                      {s.nome}
                     </option>
                   ))}
                 </select>
@@ -427,7 +430,7 @@ function Index() {
             <div>
               <Label>Período *</Label>
               <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {periodosDisponiveis().map((p) => (
+                {periodos.map((p) => (
                   <OptionButton
                     key={p}
                     selected={form.periodo === p}
@@ -444,13 +447,13 @@ function Index() {
             <div>
               <Label>Projeto *</Label>
               <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {PROJETOS.map((p) => (
+                {obrasAtivas.map((o) => (
                   <OptionButton
-                    key={p}
-                    selected={form.projeto === p}
-                    onClick={() => set("projeto", p)}
+                    key={o.id}
+                    selected={form.projeto === o.nome}
+                    onClick={() => set("projeto", o.nome)}
                   >
-                    {p}
+                    {o.nome}
                   </OptionButton>
                 ))}
               </div>
@@ -481,7 +484,7 @@ function Index() {
             <div>
               <Label>Status do indicador *</Label>
               <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {STATUS_INDICADOR.map((s) => (
+                {statusIndicadorOpcoes.map((s) => (
                   <OptionButton
                     key={s}
                     selected={form.statusIndicador === s}
@@ -513,7 +516,7 @@ function Index() {
             <div>
               <Label>Status do resultado *</Label>
               <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
-                {STATUS_RESULTADO.map((s) => (
+                {statusResultadoOpcoes.map((s) => (
                   <OptionButton
                     key={s}
                     selected={form.statusResultado === s}
@@ -560,7 +563,7 @@ function Index() {
             <div>
               <Label>Confirma o envio da evidência? *</Label>
               <div className="mt-2 grid grid-cols-1 gap-2">
-                {EVIDENCIA_OPCOES.map((o) => (
+                {evidenciaOpcoes.map((o) => (
                   <OptionButton
                     key={o}
                     selected={form.evidencia === o}
