@@ -174,7 +174,7 @@ function LinhaItem({
   nome: string;
   ativo: boolean;
   onToggle: () => void;
-  extra?: string;
+  extra?: string | undefined;
 }) {
   return (
     <li className="flex items-center justify-between gap-4 rounded-[10px] bg-surface px-4 py-3 ring-1 ring-line">
